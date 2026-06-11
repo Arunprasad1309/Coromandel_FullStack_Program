@@ -1,0 +1,327 @@
+/* ==========================================
+   1. MIXED LIGHT/DARK DESIGN & VARIABLES
+   ========================================== */
+:root {
+    --bg-app: #f1f5f9;           /* Pure light slate background */
+    --panel-dark: #0f172a;       /* Deep slate-black for primary panels */
+    --card-light: #ffffff;       /* Crisp white surfaces for cards */
+    --border-subtle: #e2e8f0;    /* Light structural divider lines */
+    
+    /* Core Accents */
+    --brand-blue: #2563eb;
+    --brand-dark: #1e40af;
+    --emerald-success: #10b981;
+    --rose-danger: #ef4444;
+    
+    --text-dark: #0f172a;        /* High-contrast dark text */
+    --text-muted: #64748b;       /* Muted gray subtext */
+    --text-light: #f8fafc;       /* Clean text on dark panels */
+    
+    --font-stack: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-stack);
+}
+
+body {
+    background-color: var(--bg-app);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+}
+
+/* Master Frame Workspace */
+.main, .container {
+    width: 100%;
+    max-width: 1050px;
+    background: var(--card-light);
+    border: 1px solid var(--border-subtle);
+    padding: 35px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+
+/* ==========================================
+   2. CUSTOM CSS ALERT MESSAGE (TOAST)
+   ========================================== */
+/* Targets modern notifications if appended to the body */
+.custom-alert {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    background: var(--panel-dark);
+    color: var(--text-light);
+    padding: 16px 24px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.3);
+    border-left: 4px solid var(--brand-blue);
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: toastSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes toastSlideIn {
+    from { transform: translateX(120%) scale(0.9); opacity: 0; }
+    to { transform: translateX(0) scale(1); opacity: 1; }
+}
+
+
+/* ==========================================
+   3. HIGH-CONTRAST MIXED AUTH (LOGIN)
+   ========================================== */
+body:has(#loginForm) .main {
+    max-width: 400px;
+    margin-top: 8vh;
+    background: var(--panel-dark); /* Dark variant container */
+    color: var(--text-light);
+    border: none;
+    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.3);
+}
+
+body:has(#loginForm) h1 {
+    color: var(--text-light);
+    font-size: 26px;
+    margin-bottom: 25px;
+}
+
+#loginForm input {
+    width: 100%;
+    padding: 14px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    outline: none;
+    margin-bottom: 16px;
+}
+
+#loginForm input:focus {
+    border-color: var(--brand-blue);
+    background: #0f172a;
+}
+
+#loginForm button[type="submit"] {
+    background: var(--brand-blue);
+    color: white;
+    padding: 14px;
+    font-size: 15px;
+    width: 100%;
+}
+
+#loginForm button[type="submit"]:hover {
+    background: var(--brand-dark);
+}
+
+
+/* ==========================================
+   4. STREAMLINED MIXED DASHBOARD
+   ========================================== */
+
+/* Dark Accent Dashboard Header Block */
+.header {
+    background: var(--panel-dark);
+    margin: -35px -35px 35px -35px;
+    padding: 24px 35px;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    color: var(--text-light);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#userWelcome {
+    color: #93c5fd;
+}
+
+button.logout {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    padding: 8px 16px;
+    font-size: 13px;
+}
+
+button.logout:hover {
+    background: var(--rose-danger);
+}
+
+/* Light Metric Block Grid Rows */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 35px;
+}
+
+.summary-grid .card {
+    background: var(--bg-app);
+    border: 1px solid var(--border-subtle);
+    padding: 18px;
+    border-radius: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.summary-grid span {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-top: 4px;
+}
+
+.summary-grid .card:nth-child(1) span { color: var(--brand-blue); }
+.summary-grid .card:nth-child(2) span { color: var(--emerald-success); }
+.summary-grid .card:nth-child(3) span { color: var(--rose-danger); }
+
+h2 {
+    font-size: 15px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+}
+
+/* Clean, Stacked Workspace Rows */
+.student-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.student-card {
+    background: var(--card-light);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.student-card:hover {
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+    border-color: #cbd5e1;
+}
+
+.student-card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    min-width: 160px;
+}
+
+.student-card p:nth-of-type(1) {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* Subtle inline status labels */
+.student-card p:nth-of-type(2) {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+.student-card.present p:nth-of-type(2) {
+    background: #e8f5e9;
+    color: var(--emerald-success);
+}
+
+.student-card.absent p:nth-of-type(2) {
+    background: #ffebee;
+    color: var(--rose-danger);
+}
+
+/* Action Control Pill Buttons */
+.btn-group {
+    display: flex;
+    gap: 6px;
+}
+
+.btn-group button {
+    padding: 6px 12px;
+    font-size: 12px;
+    background: var(--bg-app);
+    color: var(--text-dark);
+}
+
+.btn-present:hover { background: var(--emerald-success); color: white; }
+.btn-absent:hover { background: var(--rose-danger); color: white; }
+.btn-status:hover { background: var(--panel-dark); color: white; }
+
+
+/* ==========================================
+   5. DETAILED VIEW COMPONENT PANEL
+   ========================================== */
+.back-btn {
+    background: var(--panel-dark);
+    color: var(--text-light);
+    font-size: 13px;
+    padding: 8px 14px;
+    margin-bottom: 25px;
+}
+
+.back-btn:hover {
+    background: var(--brand-blue);
+}
+
+#studentDetails {
+    background: var(--bg-app);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 8px 24px;
+}
+
+.detail-item {
+    display: flex;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: 14px;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-item strong {
+    width: 140px;
+    color: var(--text-muted);
+    font-weight: 500;
+}

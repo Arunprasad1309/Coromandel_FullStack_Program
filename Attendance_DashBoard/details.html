@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Details</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <button class="back-btn" onclick="window.location.href='dashboard1.html'">← Back to Dashboard</button>
+    <h1>Student Details</h1>
+    <div id="studentDetails"></div>
+  </div>
+
+  <script>
+    const studentId = Number(localStorage.getItem('selectedStudentId'));
+    const students = JSON.parse(localStorage.getItem('studentData')) || [];
+    const student = students.find(s => s.id === studentId);
+
+    if (student) {
+      document.getElementById('studentDetails').innerHTML = `
+        <div class="detail-item"><strong>Name:</strong> ${student.name}</div>
+        <div class="detail-item"><strong>Roll Number:</strong> ${student.roll}</div>
+        <div class="detail-item"><strong>ID:</strong> ${student.id}</div>
+        <div class="detail-item"><strong>Phone:</strong> ${student.phone}</div>
+        <div class="detail-item"><strong>Email:</strong> ${student.email}</div>
+        <div class="detail-item"><strong>Status:</strong> ${student.status}</div>
+      `;
+    } else {
+      document.getElementById('studentDetails').innerHTML = '<p>Student not found</p>';
+    }
+  </script> 
+</body>
+</html>

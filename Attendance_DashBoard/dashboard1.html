@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Staff Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="header">
+            <h1>Welcome, <span id="userWelcome"></span></h1>
+            <button class="logout" onclick="logout()">Logout</button>
+        </div>
+        <div class="summary-grid">
+            <div class="card">Total Students: <span id="totalStudents">0</span></div>
+            <div class="card">Students Present: <span id="presentCount">0</span></div>
+            <div class="card">Students Absent: <span id="absentCount">0</span></div>
+        </div>
+        <h2>Students Section</h2>
+        <div class="student-grid" id="studentGrid"></div>
+    </div>
+
+    <script>
+        let students = [];
+
+        const username = localStorage.getItem('loggedInUser');
+        if (!username) window.location.href = 'login.html';
+        document.getElementById('userWelcome').textContent = username;
+
+        fetch('students.json')
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to load students');
+                return response.json();
+            })
+            .then(data => {
+                const saved = localStorage.getItem('studentData');
+                // students = saved ? JSON.parse(saved) : data;
+                if (saved) {
+                    // If the user already has saved attendance data, use it.
+                    students = JSON.parse(saved);
+                } else {
+                    // If this is the first load, use the JSON data AND seed it into localStorage
+                    students = data;
+                    localStorage.setItem('studentData', JSON.stringify(data));
+                }
+                renderDashBoard();
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Error While loading student data');
+            });
+
+        function renderDashBoard() {
+            const total = students.length;
+            const present = students.filter(s => s.status === 'present').length;
+            const absent = total - present;
+
+            document.getElementById('totalStudents').textContent = total;
+            document.getElementById('presentCount').textContent = present;
+            document.getElementById('absentCount').textContent = absent;
+
+            const grid = document.getElementById('studentGrid');
+            grid.innerHTML = '';
+            students.forEach(student => {
+                const card = document.createElement('div');
+                card.className = `student-card ${student.status}`;
+                card.innerHTML = `
+                <h3>${student.name}</h3>
+                <p>Roll No: ${student.roll}</p>
+                <p>Status: ${student.status}</p>
+                <div class = "btn-group">
+                    <button class="btn-present" onclick = "mark(${student.id}, 'present')">Present</button>
+                    <button class="btn-absent" onclick = "mark(${student.id}, 'absent')">Absent</button>
+                    <button class="btn-status" onclick = "viewDetails(${student.id})">View Details</button>
+                </div>
+             `;
+                grid.appendChild(card);
+            });
+        }
+
+        function mark(id, status) {
+            students = students.map(s => s.id === id ? { ...s, status: status } : s);
+            localStorage.setItem('studentData', JSON.stringify(students));
+            renderDashBoard();
+        }
+
+        function viewDetails(id) {
+            localStorage.setItem('selectedStudentId', id);
+            window.location.href = 'details.html';
+        }
+
+        // function logout () {
+        //     localStorage.removeItem("loggedInUser");
+        //     window.location.href = 'login.html';
+        // }
+
+        function logout() {
+            const username = localStorage.getItem("loggedInUser") || "User";
+            localStorage.removeItem("loggedInUser");
+            alert(`Thank you for your time, ${username}! You have been successfully logged out.`);
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+
+</html>

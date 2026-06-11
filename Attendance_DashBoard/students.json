@@ -1,0 +1,9 @@
+[
+  { "id": 1, "name": "Alex Carry", "roll": "CS001", "phone": "9876543210", "email": "alex@mail.com", "status": "present" },
+  { "id": 2, "name": "Sam Wilson", "roll": "CS002", "phone": "9876543211", "email": "sam@mail.com", "status": "absent" },
+  { "id": 3, "name": "Chris Jordan", "roll": "CS003", "phone": "9876543212", "email": "jordan@mail.com", "status": "present" },
+  { "id": 4, "name": "Steve Smith", "roll": "CS004", "phone": "9876543213", "email": "steve@mail.com", "status": "present" },
+  { "id": 5, "name": "Taylor Banton", "roll": "CS005", "phone": "9876543214", "email": "taylor@mail.com", "status": "absent" },
+  { "id": 6, "name": "Sam Curron", "roll": "CS006", "phone": "7982826412", "email": "curron@mail.com", "status": "absent" },
+  { "id": 7, "name": "Jofra Archer", "roll": "CS007", "phone": "9958746183", "email": "jofra@mail.com", "status": "present" }
+]
