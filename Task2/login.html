@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login Page</title>
+    <!-- Adding a little style so it matches your CSS from earlier -->
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        table { border-spacing: 10px; }
+        .error { color: red; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+
+<form id="myForm">
+    <table>
+        <tr>
+            <td><label for="fname">First Name:</label></td>
+            <td><input type="text" id="fname" name="fname"></td>
+        </tr>
+        <tr>
+            <td><label for="email">Email Address:</label></td>
+            <td><input type="email" id="email" name="email"></td>
+        </tr>
+        <tr>
+            <td><label for="message">Message:</label></td>
+            <td><textarea id="message" name="message" rows="4"></textarea></td>
+        </tr>
+    </table>
+</form>
+
+<button onclick="fun1()">Submit Form</button>
+
+<script>
+    function fun1() {
+        // 1. Get the elements
+        let nameInput = document.getElementById("fname");
+        let emailInput = document.getElementById("email");
+
+        // 2. Access their values
+        let nameValue = nameInput.value;
+        let emailValue = emailInput.value;
+
+        // 3. Simple Validation Logic
+        if (nameValue === "" || emailValue === "") {
+            alert("Please fill out both the Name and Email fields!");
+        } else {
+            alert("Success! Welcome, " + nameValue);
+            // Optionally redirect after success:
+            // window.location.href = "index.html";
+        }
+    }
+</script>
+
+</body>
+</html>

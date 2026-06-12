@@ -1,0 +1,119 @@
+
+body{   
+    padding-top: 80px;
+} 
+header{
+    /* position: sticky;
+    z-index: 1000;
+    top: 0; */
+    position: fixed;
+    top: 0px;
+    z-index: 1;
+    right: 0;
+    left: 0;
+    display: flex;
+    background-color: black;
+    color: white;
+    justify-content: space-between;
+    padding:0px 20px;
+    align-items: center;
+}
+ul{
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    margin-right: 150px;
+    font-size: large;
+}
+ul li a {
+    
+}
+.login{
+    background-color: rgb(241, 150, 3);
+    border-radius: 10px;
+    padding: 15px;
+}
+.hero{
+    display: flex;
+    /* background-color: rgb(14, 100, 176); */
+   background-color: rgb(0 16 16 / 73%);
+    padding: 50px;
+    gap: 20px;
+}
+.hero-left {
+    width: 50%;
+    background-color: bisque;
+    background-size: cover;
+    padding: 100px;
+    border-radius: 10px;
+}
+.hero-right {
+    width: 50%;
+    position: relative;
+    background-size: cover;
+    border-radius: 10px;
+}
+.bats{
+    height: 100%;
+    border-radius: 10px;
+}
+img {
+    width: 100%;
+}
+.product{
+    display: flex;
+    padding: 10px;
+}
+.product-left{
+    background-color: rgb(17 16 22 / 55%);
+    width: 30%;
+    padding: 10px;
+    position: sticky;
+}
+.product-left ul {
+    position: sticky;
+    top: 150px;
+    padding: 20px;
+    height: 250px;
+    width: 85%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    list-style: none;
+    flex-direction: column;
+}
+.product-right{
+    background-color:#a1a1a1;
+    width: 69%;
+    padding: 10px;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+.box
+{
+    height: 200px;
+    width: 200px;
+    background-color:white;
+    padding: 10px;
+    text-align: center;
+    border: solid black;
+    margin: 10px 10px;
+    border-radius: 5%;
+}
+img{
+    width: 100%;
+    height: 60%;
+}
+p{
+    font-size: large;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.pa{
+    position: absolute;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    right: 30px;
+    top: 30px;
+}
