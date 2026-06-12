@@ -1,0 +1,90 @@
+/* --- Basic Structure & Layout --- */
+body {
+  font-family: sans-serif;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 15px;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* --- Inline Form Layout --- */
+#expenseForm {
+  margin-bottom: 25px;
+  padding: 10px 0;
+}
+
+#expenseForm input, 
+#expenseForm select, 
+#expenseForm button {
+  padding: 6px;
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+/* --- Row-based Summary Cards --- */
+.summary-grid {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 25px;
+  padding: 15px 0;
+  border-top: 1px dashed #ccc;
+  border-bottom: 1px dashed #ccc;
+}
+
+.card {
+  font-size: 14px;
+  color: #555;
+}
+
+.card span {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+  margin-top: 5px;
+}
+
+/* --- Filter Layout --- */
+.filter-bar {
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.filter-bar select {
+  padding: 4px;
+  margin-left: 5px;
+}
+
+/* --- Classic Plain Data Table --- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+/* --- Action Button --- */
+.delete-btn {
+  background-color: transparent;
+  color: #cc0000;
+  border: 1px solid #cc0000;
+  padding: 3px 8px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.delete-btn:hover {
+  background-color: #cc0000;
+  color: #ffffff;
+}

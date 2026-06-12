@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Expenses Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="dashboard">
+        <h1>Expenses Tracker Dashboard</h1>
+        <!-- Form Container -->
+        <form id="expenseForm">
+            <select id="categoryInput" required>
+                <option value="" disabled selected hidden>Select a Category</option>
+                <option value="Food">Food</option>
+                <option value="Travel">Travel</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Bills">Bills</option>
+                <option value="Entertainment">Entertainment</option>
+            </select>
+            <input type="text" id="titleInput" placeholder="Expense Title" required />
+            <input type="number" id="amountInput" placeholder="Amount" required />
+            <button type="submit">Add Expense</button>
+        </form>
+
+        <!-- Summary Cards Grid -->
+        <div class="summary-grid">
+            <div class="card">Total Spent: <span id="totalSpent">0</span></div>
+            <div class="card">Transactions: <span id="totalTransactions">0</span></div>
+            <div class="card">Highest Expense: <span id="highestExpense">0</span></div>
+        </div>
+
+        <!-- Filters Bar -->
+        <div class="filter-bar">
+            <label>Filter by Category:</label>
+            <select id="filterCategory">
+                <option value="All">All Categories</option>
+                <option value="Food">Food</option>
+                <option value="Travel">Travel</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Bills">Bills</option>
+                <option value="Entertainment">Entertainment</option>
+            </select>
+        </div>
+
+        <!-- Data Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="expenseTableBody"></tbody>
+        </table>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

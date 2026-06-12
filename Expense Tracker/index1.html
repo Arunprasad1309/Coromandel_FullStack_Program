@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Expense Tracker</title>
+  <style>
+    * { box-sizing: border-box; font-family: system-ui, Arial, sans-serif; }
+    body { background: #f5f7fa; margin: 0; padding: 20px; color: #1f2937; }
+    .container { max-width: 1000px; margin: 0 auto; }
+    h1 { text-align: center; margin-bottom: 24px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .card { background: white; padding: 16px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .card h3 { margin: 0 0 8px; font-size: 14px; color: #6b7280; }
+    .card p { margin: 0; font-size: 24px; font-weight: 700; }
+    .controls { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    select, input, button { padding: 10px; border-radius: 8px; border: 1px solid #d1d5db; }
+    button { background: #3b82f6; color: white; border: none; cursor: pointer; }
+    button:hover { background: #2563eb; }
+    button.delete { background: #ef4444; }
+    button.delete:hover { background: #dc2626; }
+    table { width: 100%; background: white; border-radius: 12px; overflow: hidden; border-collapse: collapse; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+    th { background: #f9fafb; font-size: 14px; color: #6b7280; }
+    .form-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .form-row input, .form-row select { flex: 1; min-width: 120px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Smart Expense Tracker</h1>
+
+    <!-- Summary Cards - DOM methods update these -->
+    <div class="cards">
+      <div class="card">
+        <h3>Total Expense</h3>
+        <p id="total-expense">$0.00</p>
+      </div>
+      <div class="card">
+        <h3>Total Transactions</h3>
+        <p id="total-transactions">0</p>
+      </div>
+      <div class="card">
+        <h3>Highest Expense</h3>
+        <p id="highest-expense">$0.00</p>
+      </div>
+    </div>
+
+    <!-- Form Handling: Add new expense -->
+    <form id="expense-form" class="form-row">
+      <input type="text" id="title" placeholder="Title" required>
+      <select id="category" required>
+        <option value="">Category</option>
+        <option value="Food">Food</option>
+        <option value="Travel">Travel</option>
+        <option value="Shopping">Shopping</option>
+        <option value="Bills">Bills</option>
+      </select>
+      <input type="number" id="amount" placeholder="Amount" step="0.01" min="0" required>
+      <button type="submit">Add Expense</button>
+    </form>
+
+    <!-- Event Handling: Filter by category -->
+    <div class="controls">
+      <label>Filter: 
+        <select id="filter-category">
+          <option value="All">All Categories</option>
+          <option value="Food">Food</option>
+          <option value="Travel">Travel</option>
+          <option value="Shopping">Shopping</option>
+          <option value="Bills">Bills</option>
+        </select>
+      </label>
+      <button id="report-btn">Generate Fixed Report</button>
+    </div>
+
+    <!-- Table to display expenses -->
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Amount</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="expense-table-body"></tbody>
+    </table>
+  </div>
+
+  <script>
+    // 3. arrays - Store all expenses together in one list
+    let expenses = [];
+    let filteredExpenses = [];
+    let nextId = 1;
+
+    // DOM elements
+    const tableBody = document.getElementById('expense-table-body');
+    const totalExpenseEl = document.getElementById('total-expense');
+    const totalTransactionsEl = document.getElementById('total-transactions');
+    const highestExpenseEl = document.getElementById('highest-expense');
+    const filterSelect = document.getElementById('filter-category');
+    const expenseForm = document.getElementById('expense-form');
+    const reportBtn = document.getElementById('report-btn');
+
+    // 1. fetch() with .then() and .catch() - Load initial data
+    function loadInitialData() {
+      fetch('expenses.json')
+        .then(response => {
+          if (!response.ok) throw new Error('Failed to load expenses.json');
+          return response.json();
+        })
+        .then(data => {
+          expenses = data;
+          // Set nextId based on existing data
+          nextId = Math.max(...expenses.map(e => e.id)) + 1;
+          filteredExpenses = [...expenses];
+          renderTable();
+          updateSummary();
+        })
+        .catch(error => {
+          console.error('Error loading data:', error);
+          expenses = [];
+          filteredExpenses = [];
+          renderTable();
+          updateSummary();
+        });
+    }
+
+    // 8. DOM methods - Display data in table
+    function renderTable() {
+      tableBody.innerHTML = '';
+      filteredExpenses.forEach(expense => {
+        // 2. objects - Each expense is a structured item with id, title, category, amount
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${expense.id}</td>
+          <td>${expense.title}</td>
+          <td>${expense.category}</td>
+          <td>$${expense.amount.toFixed(2)}</td>
+          <td><button class="delete" data-id="${expense.id}">Delete</button></td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    // 5. reduce() - Calculate Total Expense + Highest Expense
+    function updateSummary() {
+      const total = expenses.reduce((sum, exp) => sum + exp.amount, 0);
+      const highest = expenses.length 
+        ? expenses.reduce((max, exp) => exp.amount > max ? exp.amount : max, 0)
+        : 0;
+      
+      // 8. DOM methods - Update summary cards dynamically
+      totalExpenseEl.textContent = `\$${total.toFixed(2)}`;
+      totalTransactionsEl.textContent = expenses.length;
+      highestExpenseEl.textContent = `\$${highest.toFixed(2)}`;
+    }
+
+    // 6. rest operator (...) - Add multiple new expenses through one function
+    function addExpenses(...newExpenses) {
+      newExpenses.forEach(exp => {
+        const expense = {
+          id: nextId++,
+          title: exp.title,
+          category: exp.category,
+          amount: parseFloat(exp.amount)
+        };
+        expenses.push(expense);
+      });
+      applyFilter();
+    }
+
+    // 4. filter() - Show only selected category + Delete by id
+    function applyFilter() {
+      const category = filterSelect.value;
+      filteredExpenses = category === 'All' 
+        ? [...expenses]
+        : expenses.filter(exp => exp.category === category);
+      renderTable();
+      updateSummary();
+    }
+
+    function deleteExpense(id) {
+      // filter() to delete an expense by id
+      expenses = expenses.filter(exp => exp.id !== id);
+      applyFilter();
+    }
+
+    // 7. bind() - Create fixed version of report function
+    function generateReport(period, format) {
+      const total = expenses.reduce((sum, exp) => sum + exp.amount, 0);
+      alert(`${period} Report [${format}]:\nTotal: \$${total.toFixed(2)}\nTransactions: ${expenses.length}`);
+    }
+    // Bind creates a new function with 'Monthly' and 'PDF' preset
+    const monthlyPdfReport = generateReport.bind(null, 'Monthly', 'PDF');
+
+    // 9. form handling + 10. event handling
+    expenseForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const title = document.getElementById('title').value;
+      const category = document.getElementById('category').value;
+      const amount = document.getElementById('amount').value;
+      
+      // Using rest operator function to add. Could pass multiple objects here
+      addExpenses({ title, category, amount });
+      expenseForm.reset();
+    });
+
+    // 10. event handling - Filter + Delete + Report
+    filterSelect.addEventListener('change', applyFilter);
+    
+    tableBody.addEventListener('click', e => {
+      if (e.target.classList.contains('delete')) {
+        const id = parseInt(e.target.dataset.id);
+        deleteExpense(id);
+      }
+    });
+
+    reportBtn.addEventListener('click', monthlyPdfReport);
+
+    // Init
+    loadInitialData();
+  </script>
+</body>
+</html>

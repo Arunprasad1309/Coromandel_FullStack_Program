@@ -1,0 +1,8 @@
+[
+  { "id": 1, "title": "Groceries", "category": "Food", "amount": 1200 },
+  { "id": 2, "title": "Train Ticket", "category": "Travel", "amount": 450 },
+  { "id": 3, "title": "Jacket", "category": "Shopping", "amount": 2500 },
+  { "id": 4, "title": "Electricity Bill", "category": "Bills", "amount": 1800 },
+  { "id": 5, "title": "Ice-Cream Bill", "category": "Food", "amount": 180 },
+  { "id": 6, "title": "Movie", "category": "Entertainment", "amount": 500 }
+]
