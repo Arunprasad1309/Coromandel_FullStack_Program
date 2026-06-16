@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Person Prototype Demo - Dynamic</title>
+  <style>
+    body { font-family: system-ui; padding: 20px; max-width: 700px; margin: 0 auto; }
+   .person-card { border: 1px solid #ddd; padding: 16px; border-radius: 12px; margin-bottom: 16px; }
+   .status { margin: 12px 0; padding: 10px; background: #f3f4f6; border-radius: 8px; min-height: 20px; }
+    button { margin: 4px; padding: 8px 12px; border: none; border-radius: 8px; cursor: pointer; background: #3b82f6; color: white; }
+    button:hover { background: #2563eb; }
+   .add-person { background: #10b981; margin-bottom: 20px; }
+   .add-person:hover { background: #059669; }
+    h3 { margin: 0 0 8px 0; }
+  </style>
+</head>
+<body>
+  <h1>Person Activities</h1>
+  <button class="add-person" onclick="addNewPerson()">+ Add Person</button>
+
+  <!-- All person cards will be injected here -->
+  <div id="persons-container"></div>
+
+  <script>
+    // 1. Constructor + 4 shared methods on prototype
+    function Person(name, age, id) {
+      this.id = id;
+      this.name = name;
+      this.age = age;
+      this.currentActivity = 'Idle';
+    }
+
+    Person.prototype.watchMovie = function() {
+      this.currentActivity = 'Watching Movie';
+      this.updateStatus(`${this.name} is watching a movie 🍿`);
+    };
+
+    Person.prototype.readBook = function() {
+      this.currentActivity = 'Reading Book';
+      this.updateStatus(`${this.name} is reading a book 📚`);
+    };
+
+    Person.prototype.goSleep = function() {
+      this.currentActivity = 'Sleeping';
+      this.updateStatus(`${this.name} went to sleep 😴`);
+    };
+
+    Person.prototype.playGame = function() {
+      this.currentActivity = 'Playing Game';
+      this.updateStatus(`${this.name} is playing a game 🎮`);
+    };
+
+    Person.prototype.updateStatus = function(msg) {
+      document.getElementById(`status-${this.id}`).textContent = msg;
+    };
+
+    // 2. Store all persons in an array + render dynamically
+    const persons = [];
+    const container = document.getElementById('persons-container');
+
+    function createPerson(name, age) {
+      const id = persons.length; // simple id
+      const person = new Person(name, age, id);
+      persons.push(person);
+
+      // Create the card HTML dynamically - no manual div needed
+      const card = document.createElement('div');
+      card.className = 'person-card';
+      card.innerHTML = `
+        <h3>${person.name}, ${person.age}</h3>
+        <div class="status" id="status-${id}">Idle</div>
+        <button onclick="persons[${id}].watchMovie()">Watch Movie</button>
+        <button onclick="persons[${id}].readBook()">Read Book</button>
+        <button onclick="persons[${id}].goSleep()">Go Sleep</button>
+        <button onclick="persons[${id}].playGame()">Play Game</button>
+      `;
+      container.appendChild(card);
+    }
+
+    function addNewPerson() {
+      const name = prompt('Enter person name:');
+      const age = prompt('Enter age:');
+      if (name && age) createPerson(name, age);
+    }
+
+    // 3. Initial persons
+    createPerson('Alex', 25);
+    createPerson('Sam', 30);
+
+    // All persons share the same 4 functions via prototype
+    console.log('alex.__proto__ === sam.__proto__:', persons[0].__proto__ === persons[1].__proto__); // true
+  </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proto & Prototype</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;  /* Centers horizontally */
+
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 15px;
+            max-width: 500px;
+        }
+
+        .output {
+            margin: 10px 0;
+            font-weight: bold;
+            color: blue;
+            min-height: 20px;
+        }
+
+        button {
+            margin-right: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        div{
+            
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+    </div>
+    <script>
+        function Student(name, course) {
+            this.name = name;
+            this.course = course;
+        }
+    
+        Student.prototype.login = (instance) => "Welcome, " + instance.name;
+        Student.prototype.watchLecture = (instance) => instance.name + " is watching the lecture.";
+        Student.prototype.submitAssignment = (instance) => instance.name + " has submitted the assignment.";
+        Student.prototype.downloadCertificate = (instance) => instance.name + " has downloaded the certificate.";
+
+        let students = [
+            new Student("Arun", "Java Full Stack"),
+            new Student("Prasad", "Python Full Stack"),
+            new Student("Kumar", "React")
+        ];
+
+        let container = document.getElementById("main");
+        students.forEach((student, index) => {
+            let card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `
+            <h3>${student.name} - ${student.course}</h3>
+            <div class="output" id="output-${index}"></div>
+            <button onclick = "login(${index})">Login</button>
+            <button onclick = "watchLecture(${index})">Watch Lecture</button>
+            <button onclick = "submitAssignment(${index})">Submit Assignment</button>
+            <button onclick = "downloadCertificate(${index})">Download Certificate</button>
+
+        `;
+            container.appendChild(card);
+        });
+        
+        const login = (i) => {
+            let msg = students[i].login(students[i]);
+            document.getElementById("output-" + i).innerText = msg;
+        };
+
+        const watchLecture = (i) => {
+            let msg = students[i].watchLecture(students[i]);
+            document.getElementById("output-" + i).innerText = msg;
+        };
+
+        const submitAssignment = (i) => {
+            let msg = students[i].submitAssignment(students[i]);
+            document.getElementById("output-" + i).innerText = msg;
+        };
+
+        const downloadCertificate = (i) => {
+            let msg = students[i].downloadCertificate(students[i]);
+            document.getElementById("output-" + i).innerText = msg;
+        };
+    </script>
+</body>
+
+</html>
