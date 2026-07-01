@@ -1,58 +1,63 @@
-import { useReducer, useRef, useEffect } from "react";
-import { habbitReducer } from "../reducer/habbitReducer";
-import HabbitForm from "./HabbitForm";
+import { useRef, useEffect } from "react";
+import HabitForm from "./HabitForm";
+import Stats from "./Stats";
+import "../styles/dashboard.css";
 
-function Dashboard() {
-  const [habbits, dispatch] = useReducer(habbitReducer, []);
+function Dashboard({ habits, dispatch }) {
   const inputRef = useRef();
 
-  // Auto focus when dashboard loads
   useEffect(() => {
     inputRef.current.focus();
   }, []);
 
-  const addHabbit = (newHabbit) => {
+  useEffect(() => {
+    localStorage.setItem("habits", JSON.stringify(habits));
+  }, [habits]);
+
+  const addHabit = (newHabit) => {
     dispatch({
-      type: "ADD_HABBIT",
-      payload: newHabbit,
+      type: "ADD_HABIT",
+      payload: newHabit,
     });
   };
 
-  const deleteHabbit = (id) => {
+  const deleteHabit = (id) => {
     dispatch({
-      type: "DELETE_HABBIT",
+      type: "DELETE_HABIT",
       payload: id,
     });
   };
 
-  const completeHabbit = (id) => {
+  const completeHabit = (id) => {
     dispatch({
-      type: "COMPLETE_HABBIT",
+      type: "COMPLETE_HABIT",
       payload: id,
     });
   };
 
   return (
-    <div>
+    <div className="dashboard">
       <h2>Dashboard</h2>
 
-      <HabbitForm addHabbit={addHabbit} inputRef={inputRef} />
+      <HabitForm addHabit={addHabit} inputRef={inputRef} />
 
-      {habbits.map((habbit) => (
-        <div key={habbit.id}>
+      {habits.map((habit) => (
+        <div key={habit.id} className="habit-item">
           <p>
-            {habbit.text} - {habbit.completed ? "Completed" : "Pending"}
+            {habit.text} - {habit.completed ? "Completed" : "Pending"}
           </p>
 
-          <button onClick={() => completeHabbit(habbit.id)}>
+          <button className="complete-btn" onClick={() => completeHabit(habit.id)}>
             Complete
           </button>
 
-          <button onClick={() => deleteHabbit(habbit.id)}>
+          <button className="delete-btn" onClick={() => deleteHabit(habit.id)}>
             Delete
           </button>
         </div>
       ))}
+
+      <Stats habits={habits} />
     </div>
   );
 }

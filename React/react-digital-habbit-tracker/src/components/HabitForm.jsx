@@ -1,17 +1,17 @@
 import { useState } from "react";
 
-function HabbitForm({ addHabbit, inputRef }) {
+function HabitForm({ addHabit, inputRef }) {
   const [text, setText] = useState("");
 
   const handleSubmit = () => {
     if (text.trim()) {
-      addHabbit(text);
+      addHabit(text);
       setText("");
     }
   };
 
   return (
-    <div>
+    <div className="habit-form">
       <input
         ref={inputRef}
         type="text"
@@ -25,4 +25,4 @@ function HabbitForm({ addHabbit, inputRef }) {
   );
 }
 
-export default HabbitForm;
+export default HabitForm;

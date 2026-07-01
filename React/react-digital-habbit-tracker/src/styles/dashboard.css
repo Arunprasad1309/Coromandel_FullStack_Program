@@ -1,0 +1,55 @@
+.dashboard {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.habit-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  margin: 15px 0;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.08);
+}
+
+.habit-item button {
+  margin-left: 10px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.habit-form {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.habit-form input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.habit-form button {
+  padding: 12px 20px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+.complete-btn {
+  background: #2196f3;
+  color: white;
+}
+
+.delete-btn {
+  background: #f44336;
+  color: white;
+}

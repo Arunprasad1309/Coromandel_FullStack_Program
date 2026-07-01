@@ -1,0 +1,25 @@
+.profile {
+  width: 450px;
+  margin: 80px auto;
+  padding: 35px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0px 6px 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.profile h2 {
+  margin-bottom: 25px;
+  font-size: 30px;
+}
+
+.profile-info {
+  background: #f4f6f8;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.profile-info p {
+  margin: 15px 0;
+  font-size: 18px;
+}

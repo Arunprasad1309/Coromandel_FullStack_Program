@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext.jsx";
+import "../styles/login.css";
 
 function Login() {
     const [name, setName] = useState("");
@@ -7,12 +8,12 @@ function Login() {
 
     const handleLogin = () => {
         if (name.trim() !== "") {
-            setUser({ name });
+            setUser(name);
         }
 };
 
 return (
-        <div>
+        <div className="login">
             <h2>Login</h2>
             <input
                 type="text"

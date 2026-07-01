@@ -1,6 +1,6 @@
-export const habbitReducer = (state, action) => {
+export const habitReducer = (state, action) => {
     switch(action.type) {
-        case 'ADD_HABBIT':
+        case 'ADD_HABIT':
         /* Add a new habit object to the state array with a unique id, text from action.payload, 
         and completed set to false */    
             return[
@@ -12,16 +12,16 @@ export const habbitReducer = (state, action) => {
                 },
             ];
         
-        case 'DELETE_HABBIT':
+        case 'DELETE_HABIT':
         /* Filter out the habit with the matching id from the state array */
-            return state.filter((habbit) => habbit.id !== action.payload);
+            return state.filter((habit) => habit.id !== action.payload);
 
-        case 'COMPLETE_HABBIT':
+        case 'COMPLETE_HABIT':
         /* Map through the state array and toggle the completed property of the habit with the matching id */
-            return state.map((habbit) => 
-                habbit.id === action.payload
-                ? { ...habbit, completed: !habbit.completed } 
-                : habbit
+            return state.map((habit) => 
+                habit.id === action.payload
+                ? { ...habit, completed: !habit.completed } 
+                : habit
             );
 
         default:

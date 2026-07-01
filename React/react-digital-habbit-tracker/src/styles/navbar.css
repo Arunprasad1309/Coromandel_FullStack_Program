@@ -1,0 +1,21 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background: white;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.navbar button {
+  padding: 10px 20px;
+  border: none;
+  background: #0077ff;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.navbar button:hover {
+  opacity: 0.9;
+}
