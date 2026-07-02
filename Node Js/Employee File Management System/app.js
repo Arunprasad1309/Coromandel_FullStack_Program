@@ -14,7 +14,15 @@ const server = http.createServer(async (req, res) => {
 
     if (req.url === "/") {
 
-        res.end("Welcome to Employee Management System");
+       res.end(`<h1>Welcome to the Employee File Management System</h1>
+
+            <p>To add an employee, please visit <a href="/add">/add</a></p>
+
+            <p>To view the list of employees, please visit <a href="/employees">/employees</a></p>
+            
+            <p>To view the system information, please visit <a href="/system">/system</a></p>
+            
+        `);
 
     }
 
