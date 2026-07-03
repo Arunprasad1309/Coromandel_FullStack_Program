@@ -1,0 +1,16 @@
+
+            Booking ID: 1a45f3bc-9c2e-45b5-b14e-b6aa1ec91202
+            Name: Arun
+            Movie: Leo
+            Seats: 2
+        
+            Booking ID: 743e96d3-586f-4faf-94a2-c9962e281892
+            Name: Sowji
+            Movie: Leo
+            Seats: 2
+        
+            Booking ID: 052bc8cd-7bcd-4cf6-b33b-73cc664d1fb7
+            Name: Ganga Vara Lakshmi
+            Movie: Peedi
+            Seats: 2
+        
